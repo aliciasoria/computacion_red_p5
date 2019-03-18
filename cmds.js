@@ -279,8 +279,56 @@ exports.testCmd = async(rl, id) => {
      rl.prompt();
    }
  };
+/*
+//play con then funciona
+ exports.playCmd = (socket,rl) => {
+   
+     let score =0;
+     let idsNotYetResolved=[];
+     let m=0;
+     models.quiz.findAll()
+     .then(todos=>{
+     	todos.forEach(qui=>{idsNotYetResolved[m]=qui.id;m++;});
+     })
+     .then(()=>{
+     	const playBien=async()=>{
+       if(idsNotYetResolved.length===0){
+         log(socket,`No hay nada más que preguntar.\n`)
+         log(socket,`Fin del juego, aciertos: ${score} `)
+         biglog(socket,`${score}`);
+         rl.prompt();
+       }
+       else{
+         let posi=Math.round( Math.random()*(idsNotYetResolved.length-1) );
+         let idalazar = idsNotYetResolved[ posi ];
+         idsNotYetResolved.splice(posi,1);
+         models.quiz.findById(idalazar)
+         .then(quiz=>{ 
+         	return makeQuestion(rl,`${quiz.question}? `)
+         	.then((ansprom)=>{ 
+             if(ansprom.trim().toLowerCase()===quiz.answer.trim().toLowerCase()){
+                 score=score+1;
+                 log(socket,`CORRECTO correct - Lleva ${score} aciertos: ${score} `,'bgGreen');
+                 playBien();
+             }else{
+               log(socket,`INCORRECTO. \n`)
+               log(socket,`Fin del juego, aciertos: ${score}, a tu casa`,'bgRed');
+               biglog(socket,`${score}`);
+               rl.prompt();
+             }
+       
+       });
+         });
+     }
+     };
+     playBien();
+     })
+     .catch(error=>{errorlog(socket,error.message);})
+     .then(()=>{rl.prompt();});
 
-
+     
+ };
+*/
 
 
 exports.creditsCmd =(socket, rl) => {
